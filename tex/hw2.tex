@@ -1,0 +1,288 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+\renewcommand{\baselinestretch}{1.} 
+\renewcommand{\familydefault}{\sfdefault}
+
+\begin{document}
+\title{Probability Theory and Mathematical Statistics. HW2}
+\author{O.R.Don}
+\maketitle
+
+\section*{Part I}
+
+\begin{itemize}
+\item[1.] 
+Prove that the frequency of an event A is an efficient estimator of probability P(A). 
+
+\begin{proof}
+Let $\theta = P(A), \hat{\theta} = \frac{1}{n} \sum\limits_{i=1}^{n} X_i$, where $X_i = \begin{cases}1, & \text{if A event occured}\\0, & \text{otherwise}\end{cases} \Rightarrow \\
+\Rightarrow P(X_i) = P(A) = \frac{m}{n}, m = |A|$. \\
+$\hat{\theta} \sim B(n, P(A)) = B(n, \theta) \\
+E(X_1) = P(X_1) * 1 + (1 - P(X_1)) * 0 = P(X_1) = \theta \\
+E(\hat{\theta}) = E(\frac{1}{n} \sum\limits_{i=1}^{n} X_i) = \frac{1}{n} \sum\limits_{i=1}^{n} E(X_i) = \frac{1}{n}*n*\theta = \theta \\
+V(X_1) = E(X_1^2) - (E X_1)^2 = \theta - \theta^2 = \theta * (1 - \theta) \\
+V(\hat{\theta}) = V(\frac{1}{n} \sum\limits_{i=1}^{n} X_i) = \frac{1}{n^2} \sum\limits_{i=1}^{n} V(X_i) = \frac{1}{n^2}*n*\theta*(1 - \theta) = \frac{\theta*(1 - \theta)}{n}. \\
+\text{Assume event A occured m times}, then \\
+L(m,\theta) = P(m) = C_{n}^{m} \theta^m (1 - \theta)^{n - m}. \\
+U(m, \theta) = \frac{d}{d\theta} \ln L(m, \theta) = \frac{d}{d\theta} \ln (C_{n}^{m} * \theta^m * (1 - \theta)^{n - m}) = \\
+= \frac{d}{d\theta} (\ln C_{n}^{m} + \ln \theta^m + \ln (1 - \theta)^{n - m}) = \frac{m}{\theta} - \frac{n - m}{1 - \theta} = \frac{m - \theta*n}{\theta*(1 - \theta)}. \\
+I(\theta) = E(U^2(m,\theta) = E[(\frac{m - \theta*n}{\theta*(1 - \theta)})^2] = 
+\frac{E[(m - n*\theta)^2]}{\theta^2*(1 - \theta)^2} = 
+\frac{E[(\frac{n}{n} * (m - n*\theta))^2]}{\theta^2*(1 - \theta)^2} = \\
+= \frac{n^2 * E[(\frac{m}{n} - \theta)^2]}{\theta^2*(1 - \theta)^2} =
+|\text{since m is amount of occurences of A} \Rightarrow \hat{\theta} = 
+\frac{m}{n}| = \\
+= \frac{n^2 * V(\hat\theta)}{\theta^2*(1 - \theta)^2} = \frac{n*\theta*(1 - \theta)}{\theta^2*(1 - \theta)^2} = \frac{n}{\theta*(1 - \theta)} \Rightarrow V(\hat\theta) = \frac{1}{I(\theta)} \Rightarrow \hat\theta \text{ is effective estimator of P(A).}$
+\end{proof}
+
+\item[2.]
+The sample set ($X_1, ..., X_n$) of random variable X corresponds the exponential distribution with parameter $\frac{1}{\theta}$ $(E(\frac{1}{\theta}))$. Prove that $\bar{X}$ is an efficient estimator.
+
+\begin{proof}
+$X \sim E(\frac{1}{\theta}) \Rightarrow f(x) = \begin{cases}\frac{1}{\theta}e^{-\frac{1}{\theta}x}, & if x \ge 0 \\0, & \text{otherwise}\end{cases}. \\
+E(X) = \int\limits_{0}^{+\infty} x \frac{1}{\theta}e^{-\frac{1}{\theta}x}dx = -x e^{-\frac{1}{\theta}x} \bigg|_{0}^{+\infty} + \int\limits_{0}^{+\infty} e^{-\frac{1}{\theta}x} dx = \\
+= -x e^{-\frac{1}{\theta}x} \bigg|_{0}^{+\infty} - \theta \int\limits_{0}^{+\infty} e^{-\frac{1}{\theta}x} d(-\frac{1}{\theta}x) = -x e^{-\frac{1}{\theta}x} - \theta e^{-\frac{1}{\theta}x} \bigg|_{0}^{+\infty} = \theta \\
+E(X^2) = \int\limits_{0}^{+\infty} x^2 \frac{1}{\theta}e^{-\frac{1}{\theta}x}dx = -x^2 e^{-\frac{1}{\theta}x} \bigg|_{0}^{+\infty} + 2 \int\limits_{0}^{+\infty} x e^{-\frac{1}{\theta}x} dx = \\
+= -x^2 e^{-\frac{1}{\theta}x} \bigg|_{0}^{+\infty} + 2 \theta E(x) = 2 \theta^2 \\
+V(X) = E(X^2) - E^2(X) = 2\theta^2 - \theta^2 = \theta^2 \\
+E(\bar{X}) = E(\frac{1}{n}\sum\limits_{i=1}^{n} X_i) = \frac{1}{n}\sum\limits_{i=1}^{n}E(X_i) = \frac{1}{n} n \theta = \theta \\
+V(\bar{X}) = V(\frac{1}{n}\sum\limits_{i=1}^{n}X_i) = \frac{1}{n^2}\sum\limits_{i=1}^{n}V(X_i) = \frac{1}{n^2} n \theta^2 = \frac{\theta^2}{n}. \\
+L = \prod\limits_{i = 1}^n \frac{1}{\theta}e^{-\frac{1}{\theta}X_i} = \frac{1}{\theta^n} e^{-\frac{1}{\theta}\sum\limits_{i=1}^{n} X_i} \\
+U = \frac{d}{d\theta} \ln L = \frac{d}{d\theta} \ln (\frac{1}{\theta^n} e^{-\frac{1}{\theta}\sum\limits_{i=1}^{n} X_i}) = \frac{d}{d\theta} (-n\ln\theta - \frac{1}{\theta}\sum\limits_{i=1}^{n} X_i) = -\frac{n}{\theta} + \frac{\sum\limits_{i=1}^{n} X_i}{\theta^2} = \\ 
+= \frac{\sum\limits_{i=1}^{n} X_i - n\theta}{\theta^2}. \\
+I(\theta) = E(U^2) = E[(\frac{\sum\limits_{i=1}^{n} X_i - n\theta}{\theta^2})^2] = 
+\frac{V(\sum\limits_{i=1}^{n} X_i)}{\theta^4} = 
+\frac{\theta^2}{\theta^4} = 
+\frac{1}{\theta^2} \Rightarrow \\
+\Rightarrow I_n(\theta) = \frac{n}{\theta^2} \Rightarrow V(\bar{X}) = \frac{1}{I_n(\theta)} \Rightarrow \bar{X}\text{ is efficient estimator of }E(\frac{1}{\theta}).$
+\end{proof}
+
+\item[3.]
+The random variable X can be 0 or 1 with probability 0.5. \\
+\begin{itemize}
+\item[a.] What is mean $\mu$ and variance $\sigma^2$ for X? \\
+\item[b.] The set of X: $X_1, ..., X_9$. Lets take a look at five different estimators of mean $\mu$:
+\begin{itemize}
+\item[i.] $\hat{\mu_1} = 0.45$ \\
+\item[ii.] $\hat{\mu_2} = X_1$ \\
+\item[iii.] $\hat{\mu_3} = \bar{X}$ \\
+\item[iv.] $\hat{\mu_4} = X_1 + \frac{1}{3}X_2$ \\
+\item[v.] $\hat{\mu_5} = \frac{2}{3}X_1 + \frac{2}{3}X_2 - \frac{1}{3}X_3$.
+\end{itemize}
+(1) Which of estimators are unbiased? \\
+(2) What is the bias for each estimator? \\
+(3) Which one is the most efficient? 
+
+\end{itemize}
+
+\textit{Solution.} \textbf{a.} $P(X=0) = P(X=1) = \frac{1}{2}. \\
+E(X) = \frac{1}{2} * 0 + \frac{1}{2} * 1 = \frac{1}{2}. \\
+E(X^2) = \frac{1}{2} * 0 + \frac{1}{2} * 1 = \frac{1}{2}. \\
+V(X) = \frac{1}{2} - \frac{1}{4} = \frac{1}{4}. 
+$\\
+\textbf{Answer: $E(X) = \frac{1}{2}, V(X) = \frac{1}{4}$.} \\
+\\
+\textit{Solution.} \textbf{b.}  \\
+$E(\hat{\mu_1}) = 0.45, Bias(\hat{\mu_1}, \mu) = -0.05, V(\hat{\mu_1}) = 0.2475 \\
+E(\hat{\mu_2}) = E(X_1) = \frac{1}{2}, Bias(\hat{\mu_2}, \mu) = 0, V(\hat{\mu_2}) = \frac{1}{4} \\
+E(\hat{\mu_3}) = E(\bar{X}) = \frac{n\mu}{n} = \mu = \frac{1}{2}, Bias(\hat{\mu_3}, \mu) = 0, V(\hat{\mu_3}) = \frac{1}{4n} = \frac{1}{12} \\
+E(\hat{\mu_4}) = E(X_1 + \frac{1}{3} X_2) = \frac{4}{3} \mu = \frac{2}{3}, Bias(\hat{\mu_4}, \mu) = \frac{1}{6}, V(\hat{\mu_4}) = \frac{5}{18} \\
+E(\hat{\mu_5}) = E(\frac{2}{3}X_1 + \frac{2}{3}X_2 - \frac{1}{3}X_3) = \mu = \frac{1}{2}, Bias(\hat{\mu_1}, \mu) = 0, V(\hat{\mu_5}) = \frac{7}{36}.
+$
+
+\textbf{Answer:} 
+\begin{itemize}
+\item[(1)] unbiased estimators are $\mu_2, \mu_3, \mu_5$; 
+\item[(2)] estimators biases are $Bias(\mu_1) = -0.05, Bias(\mu_2) = 0,\\ Bias(\mu_3) = 0, Bias(\mu_4) = \frac{1}{6}, Bias(\mu_5) = 0$; 
+\item[(3)] most efficient estimator is $\mu_3$ since $V(\mu_3) < V(\mu_5) < V(\mu_2) \Rightarrow \\ \Rightarrow V(\mu_3)$ is the lowest.
+\end{itemize}
+
+\item[4.]
+Given length X and width Y. Real X is 10, real Y is 5. Estimation A = XY is random variable. \\
+$P(X=8) = \frac{1}{4}, P(X=10) = \frac{1}{4}, P(X=11) = \frac{1}{2}$. \\
+$P(Y=4) = \frac{1}{2}, P(Y=6) = \frac{1}{2}$. \\
+a) is X unbiased estimator of length? Prove. \\
+b) is Y unbiased estimator of width? Prove. \\
+c) is A = XY unbiased estimator of square? Prove. 
+
+\textit{Solution.} a) $E(X) = 8*\frac{1}{4} + 10*\frac{1}{4} + 11*\frac{1}{2} = 10 \Rightarrow E(X) = real X \Rightarrow\\
+\Rightarrow$ X is unbiased estimator of length. \\
+b) $E(Y) = 4*\frac{1}{2} + 6*\frac{1}{2} = 5 \Rightarrow E(Y) = real Y \Rightarrow$ Y is unbiased estimator of width. \\
+c) $E(XY) = E(X) E(Y) = 10 * 5 = 50 \Rightarrow E(XY) = real X * real Y \Rightarrow\\
+\Rightarrow$ XY is unbiased estimator of area of rectangle. \\
+
+\textbf{Answer:} 
+\begin{itemize}
+\item[a)] X is unbiased estimator of length; 
+\item[b)] Y is unbiased estimator of Y; 
+\item[c)] XY is unbiased estimator of area of rectangle.
+\end{itemize}
+
+\item[5.]
+The two measurements of a side of square are taken $X_1, X_2$. Let measurements be independent with mean $\alpha$ ($\alpha$ is a real length of the square) and $\sigma^2$. What is MSE of the area estimator $X_1 X_2$?
+
+\textit{Solution.} $\theta = \alpha^2, \hat{\theta} = X_1*X_2, \alpha = E(X), \sigma^2 = V(X), E(X^2) = \sigma^2 + \alpha^2. \\
+MSE(\hat{\theta}) = E_{\hat{\theta}} [(\hat{\theta} - \theta)^2] = V_{\hat{\theta}}(\hat{\theta}) + [Bias(\hat{\theta}, \theta)]^2. \\
+E_{\hat{\theta}}(\hat{\theta}) = E_{\hat{\theta}}(X_1 X_2) = E_{\hat{\theta}}(X_1) E_{\hat{\theta}}(X_2) = \alpha^2 \Rightarrow X_1 X_2\text{ is unbiased for }\theta \Rightarrow \\
+\Rightarrow Bias(\hat{\theta}, \theta) = 0 \Rightarrow MSE(\hat{\theta}) = V_{\hat{\theta}}(\hat{\theta}) = V_{\hat{\theta}}(X_1 X_2) = \\
+= V_{\hat{\theta}}(X_1) V_{\hat{\theta}}(X_2) = \sigma^4.$
+
+\textbf{Answer: $MSE(X_1 X_2) = \sigma^4$.}
+
+\item[6.]
+The mean $\lambda$ of Poisson distribution can be 1 or 2. The one measurement of random variable X has been taken. Two estimators of $\lambda$ are defined as: \\
+$X=0: \hat{\lambda}=1; \tilde{\lambda}=0;\\
+X=1: \hat{\lambda}=1.5; \tilde{\lambda}=1;\\
+X\ge 2: \hat{\lambda}=2; \tilde{\lambda}=2;\\
+$
+a) What is the mean and variance for $\hat{\lambda}$? \\
+b) What is the mean and variance for $\tilde{\lambda}$? \\
+c) Which estimator is more accurate? \\
+
+\textit{Solution.} 
+$X\sim \mathrm{P}(\lambda); \lambda_1 = 1, \lambda_2 = 2.\\
+P(X=k) = \frac{e^{-\lambda}\lambda^k}{k!}. \\
+E_{\hat{\lambda}}(X) = 1.5e^{-1.5} + \sum\limits_{m=2}^{n}m\frac{e^{-2} 2^m}{m!} = 1.5e^{-1.5} - 2e^{-2} + 2e^{-2}\sum\limits_{m=1}^{n}\frac{2^{m-1}}{(m-1)!} = \\
+= 1.5e^{-1.5} - 2e^{-2} + 2e^{-2} e^2 = 1.5e^{-1.5} - 2e^{-2} + 2. \\
+V_{\hat{\lambda}}(X) = E_{\hat{\lambda}}(X - E_{\hat{\lambda}}(X))^2 = E_{\hat{\lambda}}(X^2) - [E_{\hat{\lambda}}(X)]^2. \\
+E_{\hat{\lambda}}(X^2) = 1.5e^{-1.5} + \sum\limits_{m=2}^{n}m^2\frac{e^{-2} 2^m}{m!} = \\
+= 1.5e^{-1.5} - 2e^{-2} + 2e^{-2}\sum\limits_{m=1}^{n}m\frac{2^{m-1}}{(m-1)!} = \\
+= 1.5e^{-1.5} - 2e^{-2} + 2e^{-2}\sum\limits_{m=1}^{n}(m-1+1)\frac{2^{m-1}}{(m-1)!} = \\
+= 1.5e^{-1.5} - 2e^{-2} + 2e^{-2}\sum\limits_{m=1}^{n}(m-1)\frac{2^{m-1}}{(m-1)!} + 2e^{-2}\sum\limits_{m=1}^{n}\frac{2^{m-1}}{(m-1)!} = \\
+= 1.5e^{-1.5} - 2e^{-2} + 2*2 + 2*1 = 1.5e^{-1.5} - 2e^{-2} + 6. \\
+V_{\hat{\lambda}}(X) = 1.5e^{-1.5} - 2e^{-2} + 6 - (1.5e^{-1.5} - 2e^{-2} + 2)^2. \\
+E_{\hat{\lambda}}(X) \approx 2.064; V_{\hat{\lambda}}(X) \approx 1.804. \\
+E_{\tilde{\lambda}}(X) = e^{-1} - 2e^{-2} + 2. \\
+E_{\tilde{\lambda}}(X^2) = e^{-1} - 2e^{-2} + 6. \\
+V_{\tilde{\lambda}}(X) = e^{-1} - 2e^{-2} + 6 - (e^{-1} - 2e^{-2} + 2)^2. \\
+E_{\tilde{\lambda}}(X) \approx 2.097; V_{\tilde{\lambda}}(X) \approx 1.699.\\
+$
+
+\textbf{Answer:}
+\begin{itemize}
+\item[a)] $E_{\hat{\lambda}}(X) \approx 2.064; V_{\hat{\lambda}}(X) \approx 1.804$; 
+\item[b)] $E_{\tilde{\lambda}}(X) \approx 2.097; V_{\tilde{\lambda}}(X) \approx 1.699$; 
+\item[c)] for $\lambda = 1$ and $\lambda = 2$ $\hat{\lambda}$ is less unbiased (more accurate).
+\end{itemize}
+
+\item[7.]
+Let $X_1, X_2, X_3$ be a set of values for random variable with mean ($\mu$) and variance ($\sigma^2$). Lets take a look at two estimators of $\sigma^2$: \\
+\begin{itemize}
+\item[1)]$\hat{\sigma_1}^2 = c_1 (X_1 - \mu)^2;$
+\item[2)]$\hat{\sigma_2}^2 = c_2 (X_1 - \mu)^2 + c_2 (X_2 - \mu)^2 + c_2 (X_3 - \mu)^2$.
+\end{itemize}
+
+a) What $c_1, c_2$ can be equal to satisfy the $\hat{\sigma_1}^2, \hat{\sigma_2}^2$ are unbiased estimators of $\sigma^2$?
+
+b) Find proportion: efficiency($\hat{\sigma_2}^2$) / efficiency($\hat{\sigma_1}^2$).
+
+\textit{Solution.} a)$\\
+E(\hat{\sigma_1}^2) = \sigma^2 = c_1 E(X_1 - \mu)^2 = c_1 \sigma^2 \Rightarrow c_1 = 1. \\
+E(\hat{\sigma_2}^2) = \sigma^2 = c_2 E(X_1 - \mu)^2 + c_2 E(X_2 - \mu)^2 + c_2 E(X_3 - \mu)^2 = \\
+= 3 c_2 \sigma^2 \Rightarrow c_2 = \frac{1}{3}. \\
+$
+b) $V(\hat{\sigma_1}^2) = V((X_1 - \mu)^2) = V(\frac{\sigma^2}{\sigma^2}(X_1 - \mu)^2) = \\
+= \bigg| \frac{(X_1 - \mu)^2}{\sigma^2} \sim \chi^2; V(\sum\limits_{i=1}^{n}\frac{(X_i - \mu)^2}{\sigma^2}) = 2n \bigg| = \sigma^4 V(\frac{(X_1 - \mu)^2}{\sigma^2}) = 2\sigma^4. \\
+V(\hat{\sigma_2}^2) = V(\frac{1}{3}\sum\limits_{i=1}^{3}(X_i - \mu)^2) = V(\frac{\sigma^2}{\sigma^2} \frac{1}{3}\sum\limits_{i=1}^{3}(X_i - \mu)^2) = \frac{\sigma^4}{9} V(\frac{\sum\limits_{i=1}^{3}(X_i - \mu)^2}{\sigma^2}) = \\
+= \frac{6\sigma^4}{9} = \frac{2\sigma^4}{3}. \\
+\frac{V(\hat{\sigma_2}^2)}{V(\hat{\sigma_1}^2)} = \frac{\frac{2\sigma^4}{3}}{2\sigma^4} = \frac{4\sigma^{16}}{3}.$
+
+\textbf{Answer:}
+\begin{itemize}
+\item[a)] $c_1 = 1; c_2 = \frac{1}{3}$;
+\item[b)] $\frac{V(\hat{\sigma_2}^2)}{V(\hat{\sigma_1}^2)} = \frac{4\sigma^{16}}{3}$.
+\end{itemize}
+
+\end{itemize}
+
+\newpage
+\section*{Part II}
+
+\begin{itemize}
+
+\item[1.]
+$\text{(The mean of the empirical distribution)}^2$ is unbiased estimator of $\text{(the mean of the random variable)}^2$? Proof.
+
+\textit{Solution.}
+$\hat{\theta} = (\frac{1}{n}\sum\limits_{i=1}^{n}X_i)^2; \theta = (E(X))^2. \\
+E(X) = \mu; V(X) = \sigma^2; E(X^2) = \sigma^2 + \mu^2;.\\
+E(\hat{\theta}) = E(\frac{1}{n}\sum\limits_{i=1}^{n}X_i)^2 = \frac{1}{n^2} E(\sum\limits_{i=1}^{n}X_i)^2 = \frac{1}{n^2} E(\sum\limits_{i=1}^{n}X_i^2 + 2\sum\limits_{i=1; j>i}^{n} X_i X_j) = \\
+= \frac{1}{n^2}[\sum\limits_{i=1}^{n}E(X_i^2) + 2\sum\limits_{i=1; j>i}^{n}E(X_i X_j)] = \frac{1}{n^2}[n (\sigma^2 + \mu^2) + \frac{n(n-1)}{2}2\mu^2] = \\
+= \frac{1}{n}(\sigma^2 + \mu^2 + n\mu^2 - \mu^2) = \frac{\sigma^2}{n} + \mu^2. \\
+\theta = (E(X))^2 = \mu^2.\\
+E(\hat{\theta}) - \theta = \frac{\sigma^2}{n} + \mu^2 - \mu^2 = \frac{\sigma^2}{n} \Rightarrow \hat{\theta} \text{ is biased estimator, bias is } \frac{\sigma^2}{n}.
+$
+
+\textbf{Answer:} $(\frac{1}{n}\sum\limits_{i=1}^{n}X_i)^2$ is biased estimator of $(E(X))^2$, bias is $\frac{\sigma^2}{n}$.
+
+\item[2.]
+Let X be a random variable $\sim N(147.8, 12.3^2)$.
+\begin{itemize}
+\item[a.] What is $P(X < 163.3)$?
+\item[b.] Let $\bar{X}$ be an empirical mean and $S^2$ be an empirical variance that have been obtained via simple set with size n = 25 of random variable X. What is $P(\bar{X} \le 150.9)$?
+\item[c.] What a and b can be equal to satisfy the $P(a \le S^2 \le b) = 0.95$?
+\end{itemize}
+
+\textit{Solution.} a. $Y = \frac{X - \mu}{\sqrt{\sigma^2}} = \frac{X - 147.8}{12.3}. \\
+P(X < 163.3) \sim P(Y < \frac{163.3 - 147.8}{12.3}) = P(Y < \frac{15.5}{12.3}) \approx P(Y < 1.26) = \\
+= \bigg| \text{according to table of values of standard normal distribution function} \bigg| = \\
+= 0.8962. \\
+$
+b. $\bar{Y} = \frac{\bar{X} - E(\bar{X})}{\sqrt{V(\bar{X})}}. \\
+E(\bar{X}) = \mu = 147.8; V(\bar{X}) = \frac{\sigma^2}{n} = \frac{12.3^2}{25}. \\
+P(\bar{X} < 150.9) = P(\bar{Y} < \frac{150.9 - 147.8}{\frac{12.3}{5}}) = P(\bar{Y} < \frac{15.5}{12.3}) \approx P(\bar{Y} < 1.26) = \\
+= 0.8962. \\
+$
+c. $\alpha = 1 - 0.95 = 0.05. \\
+P(a \le S^2 \le b) = 0.95 = P(a \le \sum\limits_{i=1}^{25}\frac{(X_i - \bar{X})^2}{25} \le b) = \\
+= P(25 a \le \sum\limits_{i=1}^{25} (X_i - \bar{X})^2 \le 25 b) = P(25 a \le \frac{12.3^2}{12.3^2}\sum\limits_{i=1}^{25} (X_i - \bar{X})^2 \le 25 b) = \\
+= P(\frac{25}{12.3^2} a \le \sum\limits_{i=1}^{25} \frac{(X_i - \bar{X})^2}{12.3^2} \le \frac{25}{12.3^2} b). \\
+\chi^2 = \sum\limits_{i=1}^{25} \frac{(X_i - \bar{X})^2}{12.3^2}; \chi^2_{\frac{\alpha}{2}, n} = \chi^2_{0,025, 25} = \frac{25}{12.3}b; \chi^2_{1 - \frac{\alpha}{2}, n} = \chi^2_{0,975, 25} = \frac{25}{12.3}a. \\
+\chi^2_{0,025, 25} = 40.64647; \chi^2_{0,975, 25} = 13.11972. \\
+b = \chi^2_{0,025, 25} \frac{12.3}{25} = 40.64647 * \frac{12.3}{25} \approx 19.998. \\
+a = \chi^2_{0,975, 25} \frac{12.3}{25} = 13.11972 * \frac{12.3}{25} \approx 6.4549. \\
+$
+
+\textbf{Answer:}
+\begin{itemize}
+\item[a.] $P(X < 163.3) \approx 0.8962;$
+\item[b.] $P(\bar{X} \le 150.9) \approx 0.8962;$
+\item[c.] $a \approx 6.4549; b \approx 19.998.$
+\end{itemize}
+
+\item[3.]
+From data in given table:
+\begin{itemize}
+\item[a)] What is empirical mean?
+\item[b)] What is empirical variance?
+\item[c)] What is empirical correlation coefficient?
+\item[d)] Create the histogram using python/R.
+\end{itemize}
+
+\textit{Solution.} All data was calculated in python script, numeric data is rounded to 4th floating point digit. \\
+\textbf{Answer:} \\
+\begin{itemize}
+\item[a)] empirical mean for City 1 is approximately -11.8769; \\
+empirical mean for City 2 is approximately -13.7538;
+\item[b)] empirical variance for City 1 is approximately 22.1449; \\
+empirical variance for City 2 is approximately 20.0902;
+\item[c)] empirical correlation coefficient is approximately 0.0736; \\
+\textit{comment: empirical correlation coefficient was count by formula:}\\
+$cov(X, Y) = \frac{1}{n}\sum\limits_{t=1}^{n}(X_t - \bar{X})(Y_t - \bar{Y}).\\
+corr(X, Y) = \frac{cov(X, Y)}{\sqrt{\sum(X - \bar{X})^2\sum(Y - \bar{Y})^2}}$
+
+\item[d)]
+\includegraphics{city1}
+\includegraphics{city2}
+\end{itemize}
+
+\end{itemize}
+
+\end{document}

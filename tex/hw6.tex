@@ -1,0 +1,97 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+\renewcommand{\baselinestretch}{1.} 
+\renewcommand{\familydefault}{\sfdefault}
+
+\begin{document}
+\title{Probability Theory and Mathematical Statistics. HW5}
+\author{O.R.Don}
+\maketitle
+
+\section*{Part I}
+
+\begin{itemize}
+\item[1.]
+Using the goodness-of-fit test procedure based on the chi-square distribution and considering the $\alpha = 0.05$, test: \\
+The form of the distribution of the number of bombs that fell on one district is Poisson. \\
+$H_0 : X\sim Pois(\theta).$ \\
+The form of the distribution of the number of bombs that fell on one district is not Poisson. \\
+$H_1 : X\not\sim Pois(\theta). $ \\
+
+\textit{Solution.} $H_0 : X\sim Pois(\theta), H_1 : X\not\sim Pois(\theta), \alpha = 0.05, k = 6, l = 1. \\
+\gamma = 1 - 0.25 = 0.975 \Rightarrow G = [\chi_{0.025}^2(4); \chi_{0.975}(4)] = [0.4844; 11.1433]. \\
+\hat\theta = \bar{x} = 0.9288. \\
+z = \sum\limits_{i=1}^k\frac{(v_i - np_i(\hat\theta))^2}{np_i(\hat\theta)} = 1.0544\in G \Rightarrow \text{ accept } H_0. \\
+$
+
+\textbf{Answer: accept $H_0$.}
+
+\item[2.]
+Using the goodness-of-fit test procedure based on the chi-square distribution and considering the $\alpha = 0.05$, test: \\
+The form of the distribution of the men height is normal. \\
+$H_0 : X\sim N(\theta_1, \theta_2^2).$ \\
+The form of the distribution of the men height is not normal. \\
+$H_1 : X\not\sim N(\theta_1, \theta_2^2). $ \\
+
+\textit{Solution.} $H_0 : X\sim N(\theta_1, \theta_2^2), H_1 : X\not\sim N(\theta_1, \theta_2^2), \alpha = 0.05, k = 15, \\
+l = 2. \\
+\gamma = 1 - 0.25 = 0.975 \Rightarrow G = [\chi_{0.025}^2(12); \chi_{0.975}(12)] = [4.4038; 23.3367]. \\
+\hat\theta_1 = \bar{x} = 165.533, \hat\theta_2 = s = 6.053. \\
+$
+After that, since we have intervals as x values, we take CDF of ends of intervals ($x_i, x_{i+1}$) and differences between their CDF values ($p_i = F(x_{i+1}) - F(x_i)$). \\
+$z = \sum\limits_{i=1}^{k}\frac{(v_i - np_i(\hat\theta_1, \hat\theta_2))^2}{np_i(\hat\theta_1, \hat\theta_2)} = 2.0803 \not\in G \Rightarrow \text{ reject } H_0. \\
+$
+
+\textbf{Answer: reject $H_0$.}
+
+\item[3.]
+Using the contingency table tests procedure based on the chi-square distribution and considering the $\alpha = 0.05$, test: \\
+$H_0 : X\text{ is independent of }Y. \\
+H_1 : X\text{ is depends on }Y. \\
+$
+
+\textit{Solution.} $H_0 : X\text{ is independent of }Y, H_1 : X\text{ is depends on }Y. \\
+\alpha = 0.05 \Rightarrow G = (-\infty; \chi_{0.05}^2(4\cdot 3)] = (-\infty; 7.9662]. \\
+z = n(\sum\limits_{i=1}^n\sum\limits_{j=1}^m \frac{v_{ij}^2}{v_{x,i}v_{y,j}} - 1) = -479428 \in G \Rightarrow \text{ accept } H_0. \\
+$
+
+\textbf{Answer: accept $H_0$.}
+
+\item[4.]
+Using the contingency table tests procedure based on the chi-square distribution and considering the $\alpha = 0.05$, test: \\
+$H_0 : X\text{ is independent of }Y. \\
+H_1 : X\text{ is depends on }Y. \\
+$
+
+\textit{Solution.} $H_0 : X\text{ is independent of }Y, H_1 : X\text{ is depends on }Y. \\
+\alpha = 0.05 \Rightarrow G = (-\infty; \chi_{0.05}^2(5\cdot 1)] = (-\infty; 3.9403]. \\
+z = n(\sum\limits_{i=1}^n\sum\limits_{j=1}^m \frac{v_{ij}^2}{v_{x,i}v_{y,j}} - 1) = -2026514 \in G \Rightarrow \text{ accept } H_0. \\
+$
+
+\textbf{Answer: accept $H_0$.}
+
+\item[5.]
+Suppose that 10 sets of hypotheses of the form: \\
+$H_0 : \mu_X = \mu_0 \text{(const)} \\
+H_1 : \mu_X = \mu_0 \text{(const)} \\
+$
+Have been tested and the P-values for these tests are 0.12, 0.08, 0.93, 0.02, 0.01, 0.05, 0.88, 0.15, 0.13 and 0.06. Use Fisher's procedure to combine all of these P-values. What conclusions can you draw about these hypotheses?
+
+\textit{Solution.} $\alpha = 0.05, n = 10, p_i = i^{th}\text{ P-value}. \\
+\gamma = 0.975 \Rightarrow G = [\chi_{0.25}^2(20);\chi_{0.975}^2(20)] = [9.5908; 34.1696]. \\
+z = -2\sum\limits_{i=1}^n \ln p_i = 46.2201 \not\in G \Rightarrow \\
+\Rightarrow \text{ according to Fisher's combined probability test we reject } H_0.
+$
+
+\textbf{Answer: reject $H_0$.}
+
+\end{itemize}
+
+\end{document}
